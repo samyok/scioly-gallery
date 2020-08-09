@@ -1,0 +1,526 @@
+@blue: #2e66b6;
+@yellow: #fee372;
+@white: #fffff;
+@red: #aa0000;
+@grey: #555555;
+@lightgrey: #f4f4f4;
+@globalModGreen: #00aa00;
+@wikiModBlue: #000077;
+@lessLightGrey: #cccccc;
+@slightlyLightGrey: #e4e4e4;
+@black: #111111;
+@guestBlue: #105289;
+
+/*
+Generic things, overrides
+ */
+
+input:not([type=file]) {
+  padding: 9px;
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  font-family: Avenir, sans-serif;
+  padding: 10px;
+  overflow: hidden;
+  min-height: 60px;
+  outline: none;
+}
+
+button {
+  background-color: @lightgrey;
+  color: @grey;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 6px;
+
+  &:hover {
+    background-color: @lessLightGrey;
+  }
+}
+
+/*
+Page-specific
+ */
+
+div.gal-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 0 10px 0;
+  width: 100%;
+
+  .go-back {
+    font-size: 12px;
+    align-self: start;
+  }
+
+  input#searchBar {
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid @lessLightGrey;
+    padding: 9px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .tags {
+    margin: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    user-select: none;
+    align-items: center;
+
+    .tag {
+      margin: 5px;
+      font-size: 12px;
+      padding: 3px 12px;
+      border-radius: 12px;
+      background-color: @slightlyLightGrey;
+      cursor: pointer;
+
+      &.active {
+        background-color: @lessLightGrey;
+
+        &::after {
+          content: " x";
+        }
+      }
+    }
+
+    .sort-container, .add-new-container {
+      border-left: 1px solid @slightlyLightGrey;
+      margin-left: 10px;
+      padding: 5px 5px 5px 15px;
+
+      .add-new-post, .sort {
+        cursor: pointer;
+        padding: 5px 4px;
+        background-color: @slightlyLightGrey;
+        text-decoration: none;
+        color: @black;
+
+        &:hover {
+          background-color: @lessLightGrey;
+        }
+      }
+    }
+
+    .add-new-container {
+      border-left: none;
+      margin-left: 0px;
+      border-right: 1px solid @slightlyLightGrey;
+      margin-right: 10px;
+
+      .add-new-post {
+        margin-right: 10px;
+      }
+    }
+  }
+}
+
+.container {
+  &.menu-open {
+    padding-top: 230px;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .img-tile {
+      margin: 5px;
+      flex-grow: 1;
+      //outline: 1px solid red;
+      height: 300px;
+      min-width: 300px;
+      max-width: 100%;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+
+      .bk-img {
+        width: 100%;
+        height: 100%;
+        background-color: @grey;
+        background-position: center;
+        background-size: cover;
+        transition: all .5s;
+        transform: scale(1.25);
+      }
+
+      .tile-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: calc(100% - 40px);
+        background-color: rgba(@black, 0.8);
+        color: white;
+        padding: 20px;
+      }
+
+      .tile-div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: white;
+        display: flex;
+        justify-content: right;
+        border-left: 80px solid transparent;
+        border-right: 0 solid transparent;
+        border-top: 80px solid rgba(@black, 0.8);
+
+        .div {
+          position: absolute;
+          top: -65px;
+          right: 10px;
+          width: 28px;
+        }
+      }
+
+      &:hover, &:focus {
+        cursor: pointer;
+
+        .bk-img {
+          transform: scale(1.4);
+        }
+      }
+    }
+  }
+}
+
+.gallery-category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //max-width: 100%;
+  .gallery-category {
+    display: none; // show only after everything's been loaded for masonry
+    width: 100%;
+
+    .gallery-post-container {
+      padding-bottom: 10px;
+
+      .gallery-post {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding-bottom: 10px;
+        overflow: hidden;
+        background-color: @lightgrey;
+        transition: all 0.15s;
+
+        &:not(.no-hover):hover {
+          background-color: @slightlyLightGrey;
+          cursor: pointer;
+          transition: all 0.15s;
+
+          .gallery-post-img img {
+            opacity: 0.9;
+            transition: all 0.15s;
+          }
+        }
+
+        .gallery-post-img {
+          position: relative;
+
+          img {
+            width: 100%;
+          }
+
+          .many-images {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 30px;
+            text-shadow: black 2px 2px 7px;
+          }
+        }
+
+        .gallery-post-info {
+          padding: 5px;
+          font-size: 15px;
+
+          .gallery-post-name {
+            font-size: 13px;
+
+            a {
+              color: @guestBlue;
+              font-weight: bold;
+
+              &.wikimod {
+                color: @wikiModBlue;
+              }
+
+              &.globalmod {
+                color: @globalModGreen;
+              }
+
+              &.admin {
+                color: @red;
+              }
+            }
+
+            .gallery-post-date {
+              float: right;
+              font-weight: 100;
+            }
+          }
+
+          .gallery-post-score {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 12px;
+            padding: 0 10px;
+            color: @grey;
+
+            i {
+              padding: 10px;
+
+              &:hover {
+                border-radius: 50%;
+                background-color: rgba(@grey, .2);
+              }
+            }
+
+
+            .loading {
+              color: @lessLightGrey;
+              cursor: wait;
+
+              i:hover {
+                background-color: transparent;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#carousel-container {
+
+  .go-back {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  #carousel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    > a {
+      img {
+        height: 100px;
+      }
+
+      .video-thumbnail {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          content: "\f144";
+          font-family: 'Font Awesome 5 Free';
+          font-size: 50px;
+          color: #fff;
+          opacity: .9;
+          text-shadow: 3px 3px 10px black;
+        }
+
+        &:hover:before {
+          color: #eee;
+        }
+      }
+
+      border: 4px solid @blue;
+      margin: 10px;
+
+      &:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .info-area {
+    display: flex;
+    align-items: center;
+    @media (max-width: 600px) {
+      flex-direction: column-reverse;
+      align-items: center;
+    }
+
+    .vote {
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 600px) {
+        flex-direction: row;
+        align-items: center;
+      }
+      margin-right: 10px;
+      text-align: center;
+      justify-content: center;
+
+      i {
+        padding: 10px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(@grey, .2);
+        }
+      }
+
+      &.loading {
+        color: @lessLightGrey;
+
+        i:hover {
+          cursor: wait;
+          background-color: transparent;
+        }
+      }
+    }
+
+    .title-area {
+      flex-grow: 1;
+
+      .img-title {
+        margin: 0;
+      }
+
+      .action-btns {
+        display: flex;
+
+        div {
+          margin: 10px 10px 0 0;
+          font-size: 12px;
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  .comment-wrap {
+    margin-top: 20px;
+
+    .comment {
+      padding: 10px 0 0 30px;
+      @media (max-width: 600px) {
+        padding: 10px 0 0 0;
+      }
+    }
+  }
+}
+
+.author {
+  font-size: 13px;
+
+  a {
+    color: @guestBlue;
+    font-weight: bold;
+
+    &.wikimod {
+      color: @wikiModBlue;
+    }
+
+    &.globalmod {
+      color: @globalModGreen;
+    }
+
+    &.admin {
+      color: @red;
+    }
+  }
+
+  .report {
+    cursor: pointer;
+    float: right;
+  }
+
+  .date {
+    font-weight: 100;
+  }
+
+
+}
+
+#post-writing-container {
+  .go-back {
+    font-size: 12px;
+  }
+
+  #post-title {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    border: none;
+    border-bottom: 1px solid @grey;
+    width: 100%;
+    font-family: Avenir, sans-serif;
+    resize: none;
+    overflow: hidden;
+    height: 40px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .add-pics {
+    //border: 1px solid @grey;
+    margin: 10px 0;
+    //padding: 10px;
+    .pics {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      img {
+        max-width: 400px;
+        height: 100px;
+        border: 5px solid @blue;
+        margin: 10px;
+      }
+    }
+  }
+}
+
+.editbtn {
+  i {
+    color: @grey !important;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+}
+:disabled {
+  cursor: not-allowed;
+}
