@@ -1,0 +1,799 @@
+@blue: #2e66b6;
+@yellow: #fee372;
+@white: #ffffff;
+@red: #aa0000;
+@grey: #555555;
+@lightgrey: #f4f4f4;
+@superlightgrey: #f9f9f9;
+@globalModGreen: #00aa00;
+@wikiModBlue: #000077;
+@lessLightGrey: #cccccc;
+@slightlyLightGrey: #e4e4e4;
+@black: #111111;
+@guestBlue: #105289;
+
+/*
+Generic things, overrides
+ */
+
+input:not([type=file]) {
+  padding: 9px;
+  width: 100%;
+  outline: none;
+}
+
+label {
+  font-variant: all-small-caps;
+}
+
+textarea {
+  resize: none;
+  width: 100%;
+  font-family: Avenir, sans-serif;
+  padding: 10px;
+  overflow: hidden;
+  min-height: 60px;
+  outline: none;
+}
+
+button, .gray-button {
+  background-color: @slightlyLightGrey;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  margin: 5px 0;
+  padding: 6px;
+  font: 400 13.3333px Arial;
+  color: @grey;
+
+
+  &:hover {
+    background-color: @lessLightGrey;
+  }
+}
+
+.gray-button {
+  // we need to !important these to override main.css annoyingly
+  text-decoration: none !important;
+  color: @grey !important;
+  border-radius: 2px;
+  font: 400 13.3333px Arial;
+
+}
+
+:disabled {
+  cursor: not-allowed;
+}
+
+.loading {
+  color: @lessLightGrey;
+  cursor: wait;
+
+  i:hover {
+    background-color: transparent;
+  }
+}
+
+
+/*
+Page-specific
+ */
+
+div.gal-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
+  .go-back {
+    font-size: 12px;
+    align-self: start;
+  }
+
+  input#searchBar {
+    max-width: 600px;
+    width: 100%;
+    border: 1px solid @lessLightGrey;
+    padding: 9px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+}
+
+.tags {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  .tag {
+    margin: 5px;
+    font-size: 12px;
+    padding: 3px 12px;
+    border-radius: 12px;
+    background-color: @slightlyLightGrey;
+    cursor: pointer;
+
+    &.active {
+      background-color: @lessLightGrey;
+
+      &::after {
+        content: " x";
+      }
+    }
+  }
+
+  .sort-container, .add-new-container {
+    border-left: 1px solid @slightlyLightGrey;
+    margin-left: 10px;
+    padding: 5px 5px 5px 15px;
+
+    @media (max-width: 670px) {
+      border: none;
+    }
+
+    .add-new-post, .sort {
+      cursor: pointer;
+      padding: 5px 4px;
+      background-color: @slightlyLightGrey;
+      text-decoration: none;
+      color: @black;
+
+      &:hover {
+        background-color: @lessLightGrey;
+      }
+    }
+  }
+
+  .add-new-container {
+    border-left: none;
+    margin-left: 0px;
+    border-right: 1px solid @slightlyLightGrey;
+    margin-right: 10px;
+    @media (max-width: 670px) {
+      border: none;
+    }
+
+    .add-new-post {
+      margin-right: 10px;
+    }
+  }
+}
+
+.container {
+  &.menu-open {
+    padding-top: 230px;
+  }
+
+  .gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .gallery-section {
+      width: 100%;
+      margin: 0 5px;
+      //background-color: @superlightgrey;
+      &:not(:first-child){
+        margin-top: 20px;
+      }
+    }
+
+    .img-tile {
+      margin: 5px;
+      flex-grow: 1;
+      //outline: 1px solid red;
+      height: 62px; // do 300px if want big pics.
+      min-width: 300px;
+      max-width: 100%;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+
+      .bk-img {
+        width: 100%;
+        height: 100%;
+        background-color: @grey;
+        background-position: center;
+        background-size: cover;
+        transition: all .5s;
+        transform: scale(1.25);
+      }
+
+      .tile-name {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.85);
+        color: black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .tile-div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: white;
+        display: flex;
+        justify-content: right;
+        border-left: 80px solid transparent;
+        border-right: 0 solid transparent;
+        border-top: 80px solid rgba(@black, 0.8);
+
+        .div {
+          position: absolute;
+          top: -65px;
+          right: 10px;
+          width: 28px;
+        }
+      }
+
+      &:hover, &:focus {
+        cursor: pointer;
+
+        .bk-img {
+          transform: scale(1.4);
+        }
+      }
+    }
+  }
+}
+
+.gallery-category-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition-duration: 500ms;
+  overflow: hidden;
+  //max-width: 100%;
+  .gallery-category {
+    display: none; // show only after everything's been loaded for masonry
+    width: 100%;
+    margin-top: 10px;
+    // this is for proper centering of the masonry -- it always adds a 10px right margin.
+    margin-right: -10px;
+
+    .gallery-post-container {
+      padding-bottom: 10px;
+
+      .gallery-post {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+        padding-bottom: 10px;
+        overflow: hidden;
+        background-color: @lightgrey;
+        transition: all 0.15s;
+
+        &:not(.no-hover):hover {
+          background-color: @slightlyLightGrey;
+          cursor: pointer;
+          transition: all 0.15s;
+
+          .gallery-post-img img {
+            opacity: 0.9;
+            transition: all 0.15s;
+          }
+        }
+
+        .gallery-post-img {
+          position: relative;
+          max-height: 500px;
+          overflow: hidden;
+
+
+          img {
+            width: 100%;
+          }
+
+          .many-images {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-size: 30px;
+            text-shadow: black 2px 2px 7px;
+          }
+        }
+
+        .gallery-post-info {
+          padding: 5px;
+          font-size: 15px;
+
+
+          .post-about {
+            padding: 5px 13px 0 13px;
+          }
+
+          .gallery-post-name {
+            font-size: 13px;
+
+            a {
+              color: @guestBlue;
+              font-weight: bold;
+
+              &.wikimod {
+                color: @wikiModBlue;
+              }
+
+              &.globalmod {
+                color: @globalModGreen;
+              }
+
+              &.admin {
+                color: @red;
+              }
+            }
+
+            .gallery-post-date {
+              float: right;
+              font-weight: 100;
+            }
+          }
+
+          .gallery-post-score {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 18px;
+            padding: 0 10px;
+            color: @grey;
+
+            i {
+              padding: 10px;
+
+              &:not(.no-select):hover {
+                border-radius: 50%;
+                background-color: rgba(@grey, .2);
+              }
+            }
+
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.video-thumbnail {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  &:before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    content: "\f16a";
+    font-family: FontAwesome, monospace;
+    font-size: 50px;
+    color: #fff;
+    opacity: .9;
+    text-shadow: 3px 3px 10px black;
+  }
+
+  &:hover:before {
+    color: #eee;
+  }
+}
+
+#carousel-container {
+
+  .go-back {
+    font-size: 12px;
+    margin-bottom: 10px;
+  }
+
+  #carousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+
+    > a {
+      img {
+        height: 250px;
+      }
+
+      border: 4px solid @blue;
+      margin: 10px;
+
+      &.deleted {
+        img {
+          height: 50px;
+        }
+
+        border: 10px solid @red;
+        opacity: 20%;
+      }
+
+      &:hover {
+        opacity: 0.9;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .info-area {
+    display: flex;
+    align-items: center;
+    @media (max-width: 600px) {
+      flex-direction: column-reverse;
+      align-items: center;
+      text-align: center;
+    }
+
+    .vote-area {
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 600px) {
+        flex-direction: row;
+        align-items: center;
+      }
+      margin-right: 10px;
+      text-align: center;
+      justify-content: center;
+
+      i {
+        padding: 10px;
+
+        &:hover {
+          cursor: pointer;
+          background-color: rgba(@grey, .2);
+        }
+      }
+    }
+
+    .title-area {
+      flex-grow: 1;
+
+      .img-title {
+        margin: 0;
+      }
+
+      .action-btns {
+        display: flex;
+        @media (max-width: 600px) {
+          justify-content: center;
+        }
+
+        div {
+          margin: 10px 10px 0 0;
+          font-size: 12px;
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+
+    }
+
+  }
+
+  .comment-wrap {
+    margin-top: 20px;
+
+    .comment {
+      padding: 10px 5px;
+      margin: 2px 0;
+      background-color: @superlightgrey;
+
+      &.selected {
+        background-color: #dddddd;
+
+      }
+
+      &.hidden {
+        background-color: #ffb8b8;
+      }
+
+      &.selected.hidden {
+        background-color: #ff9999
+      }
+
+      p {
+        margin: 0
+      }
+
+      .comment-info {
+        color: @grey;
+        font-variant: all-petite-caps;
+      }
+
+      @media (max-width: 600px) {
+        padding: 10px 0 0 0;
+      }
+    }
+  }
+}
+
+.author {
+  font-size: 13px;
+
+  a {
+    color: @guestBlue;
+    font-weight: bold;
+
+    &.wikimod {
+      color: @wikiModBlue;
+    }
+
+    &.globalmod {
+      color: @globalModGreen;
+    }
+
+    &.admin {
+      color: @red;
+    }
+  }
+
+  .date:hover, .report:hover, .delete:hover, .restore:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  .date {
+    font-weight: 100;
+  }
+
+
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 100px;
+  @media (max-width: 600px) {
+    margin: 0;
+  }
+  min-height: calc(100% - 400px);
+}
+
+#post-writing-container {
+  background-color: @lightgrey;
+  flex-grow: 1;
+  padding: 10px;
+
+  .go-back {
+    font-size: 12px;
+  }
+
+  #post-title {
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0.67em;
+    margin-block-end: 0.67em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    border: none;
+    width: 100%;
+    font-family: Avenir, sans-serif;
+    resize: none;
+    overflow: hidden;
+    height: 40px;
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  .borderless {
+    border: none;
+  }
+
+  .add-pics {
+    //border: 1px solid @grey;
+    margin: 10px 0;
+    //padding: 10px;
+    .pics {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+
+      .picture {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: @lightgrey;
+        font-variant: all-small-caps;
+
+        &:hover {
+          opacity: 90%;
+        }
+
+        .delete-image {
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      img {
+        max-width: 500px;
+        height: 200px;
+        border: 5px solid @blue;
+        margin: 10px 10px 0 10px;
+      }
+    }
+  }
+}
+
+.editbtn {
+  i {
+    color: @grey !important;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
+}
+
+.report-card {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding: 10px;
+  background-color: @superlightgrey;
+  margin: 5px 0;
+
+  .post-info, .report-info {
+    flex-grow: 1;
+    padding: 5px;
+  }
+
+  .controls {
+    width: 100%;
+  }
+}
+
+#report-area {
+  display: none;
+  background-color: #f7eaea;
+  padding: 10px;
+
+  textarea {
+    border: none;
+  }
+
+  button {
+    background-color: @red;
+    color: white;
+  }
+}
+
+// TESTING
+.gallery-category-container .gallery-category .gallery-post-container .gallery-post {
+  //position: relative;
+
+  .gallery-post-info {
+    //position: absolute;
+    //bottom: 0;
+    //left: 0;
+    //background-color: rgba(0, 0, 0, 0.8);
+    //color: white;
+    //width: 390px;
+  }
+}
+
+.gallery-category-container .gallery-category .gallery-post-container .gallery-post .gallery-post-info .gallery-post-score {
+  //font-size: 21px;
+  //color: white;
+}
+
+.gallery-category-container .gallery-category .gallery-post-container .gallery-post .gallery-post-img {
+  max-height: 600px;
+}
+
+.gallery-category-container .gallery-category .gallery-post-container .gallery-post {
+  //position: relative;
+  //padding: 0;
+}
+
+.thinbtn {
+  background-color: @slightlyLightGrey;
+  color: @grey !important;
+  text-decoration: none !important;
+  font-size: 14px;
+  padding: 5px 20px;
+  transition-duration: 200ms;
+  display: inline-block;
+  font-weight: 700;
+  text-align: center;
+
+  &:hover {
+    background-color: @yellow;
+  }
+}
+
+.gallery-control {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  .search {
+    width: 300px;
+    border: none;
+    padding: 5px;
+    background-color: #f0f0f0;
+    @media (max-width: 600px) {
+      flex-grow: 1;
+    }
+  }
+
+  select#sort_by {
+    margin: 0 8px;
+    @media (max-width: 600px) {
+      margin: 0
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .action-bar {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .tags {
+    justify-content: space-between;
+  }
+}
+
+.lg-progress-bar .lg-progress {
+  background-color: @blue;
+}
+
+.report-box {
+  background-color: @red;
+  color: white;
+  padding: 10px;
+  text-align: center;
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.gallery-category.tabular .gallery-post-container {
+  padding-bottom: 10px;
+  width: calc(100% - 10px);
+
+  .gallery-post {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 10px;
+    width: 100% !important;
+    overflow: hidden;
+
+    .gallery-post-img {
+      max-height: 600px;
+      max-width: 114px;
+      margin-left: 14px;
+      margin-top: 14px;
+    }
+
+    .gallery-post-info {
+      padding: 5px;
+      font-size: 15px;
+      flex-grow: 1;
+    }
+  }
+}
