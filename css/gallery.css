@@ -241,6 +241,7 @@ div.gal-nav input#searchBar:focus {
     background-color: rgba(255, 255, 255, .8);
     background-position: center;
     background-size: cover;
+    transform: scale(1.5);
     transition: all 0.5s;
     position: absolute;
     top: 0;
@@ -315,7 +316,6 @@ div.gal-nav input#searchBar:focus {
 }
 
 .container .img-tile.tile-section-1 {
-    text-decoration: none;
     font-variant: titling-caps;
 }
 

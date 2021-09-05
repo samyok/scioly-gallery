@@ -65,7 +65,7 @@ $user->setup('');
             $result = $db->sql_query($sql);
             $rows = $db->sql_fetchrowset($result);
             foreach ($rows as $row) {
-                $thumbnailSQL = 'SELECT `image_uri` FROM `gallery_images` WHERE `belongs_to_category` = ' . $row['category_id'] . ' AND `is_youtube` is not true AND `is_hidden` is not true ORDER BY RAND() LIMIT 1;';
+                $thumbnailSQL = 'SELECT `image_uri` FROM `gallery_images` WHERE `belongs_to_category` = ' . $row['category_id'] . ' AND `is_youtube` <> 1 AND `is_hidden` is not true ORDER BY RAND() LIMIT 1;';
                 $thumbnailRslt = $db->sql_query($thumbnailSQL);
                 $thumbnailRows = $db->sql_fetchrowset($thumbnailRslt);
                 $thumbnailRow = $thumbnailRows[0];
