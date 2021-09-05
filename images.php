@@ -206,15 +206,15 @@ foreach ($posts as $post) {
 
                     ?>
                     <img
-                            src="https://cdn.scioly.gallery/optimize?url=<?= $post['thumb_image_uri']; ?>&w=32&q=1"
+                            src="https://files.scioly.org/optimize?url=<?= $post['thumb_image_uri']; ?>&w=32&q=1"
                             alt=""
                             onload="resizeMasonry();nextImage(this)"
-                            data-src="https://cdn.scioly.gallery/optimize?url=<?= $post['thumb_image_uri']; ?>&w=300&q=75"
+                            data-src="https://files.scioly.org/optimize?url=<?= $post['thumb_image_uri']; ?>&w=300&q=75"
                     >
                 <?php } ?>
                 <!--                                <img style="position: absolute; top: 0; left: 0;" alt=""-->
                 <!--                                     onload="resizeMasonry();nextImage(this)"-->
-                <!--                                     data-src="https://cdn.scioly.gallery/optimize?url=-->
+                <!--                                     data-src="https://files.scioly.org/optimize?url=-->
                 <?//= $post['thumb_image_uri']; ?><!--&w=300&q=75">-->
                 <!--                <img-->
                 <!--                        class="bkg"-->

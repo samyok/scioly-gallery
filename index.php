@@ -65,17 +65,20 @@ $user->setup('');
             $result = $db->sql_query($sql);
             $rows = $db->sql_fetchrowset($result);
             foreach ($rows as $row) {
-                $thumbnailSQL = 'SELECT `image_uri` FROM `gallery_images` WHERE `belongs_to_category` = ' . $row['category_id'] . ' AND `is_youtube` <> 1 AND `is_hidden` is not true ORDER BY RAND() LIMIT 1;';
-                $thumbnailRslt = $db->sql_query($thumbnailSQL);
-                $thumbnailRows = $db->sql_fetchrowset($thumbnailRslt);
-                $thumbnailRow = $thumbnailRows[0];
-                $thumbnailImageURI = $thumbnailRow['image_uri'];
+                $thumbnailImageURI = '';
+                if ($key == 0) {
+                    $thumbnailSQL = 'SELECT `image_uri` FROM `gallery_images` WHERE `belongs_to_category` = ' . $row['category_id'] . ' AND `is_youtube` <> 1 AND `is_hidden` is not true ORDER BY RAND() LIMIT 1;';
+                    $thumbnailRslt = $db->sql_query($thumbnailSQL);
+                    $thumbnailRows = $db->sql_fetchrowset($thumbnailRslt);
+                    $thumbnailRow = $thumbnailRows[0];
+                    $thumbnailImageURI = 'https://files.scioly.org/optimize?url='. $thumbnailRow['image_uri'] . '&w=300&q=75';
+                }
                 ?>
                 <a class="img-tile tile-section-<?= $key ?>" href="category.php?c=<?= $row['category_id']; ?>">
 
                     <div class="bk-img"
                          style="filter: blur(5px);"
-                         data-bkg-src="https://cdn.scioly.gallery/optimize?url=<?php echo $thumbnailImageURI; ?>&w=300&q=75">
+                         data-bkg-src="<?= $thumbnailImageURI; ?>">
                     </div>
                     <div class="bk-img">
                     </div>
