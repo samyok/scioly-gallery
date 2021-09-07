@@ -47,7 +47,7 @@ $years = $db->sql_fetchrowset($result);
 <html lang="en">
 <head>
     <?= headHTML(null, $category_name, "Submissions on the Scioly.org Gallery do not necessarily follow current rules for the event. Always refer to the Rules Manual!") ?>
-    <title><?= $category_name; ?> - Science Olympiad Student Center - Gallery</title>
+    <title><?= $category_name; ?> - Gallery - Scioly.org</title>
     <link rel="stylesheet" href="https://bcdn.scioly.gallery/gallery/css/libs/toastr.min.css">
     <script src="https://bcdn.scioly.gallery/gallery/js/toastr.min.js"></script>
     <link rel="stylesheet" href="https://bcdn.scioly.gallery/gallery/css/libs/lightgallery.min.css">
