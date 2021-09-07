@@ -88,7 +88,7 @@ foreach ($logs as $log) {
             width: 100%;
             height: 50px;
             min-height: 0;
-            background-color: #0D4473;
+            background-color: #555;
             color: #ffffff;
             z-index: 2000;
             display: flex;
