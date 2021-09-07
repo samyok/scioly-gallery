@@ -148,11 +148,11 @@ if ($images[0]['is_youtube']) {
         <div class="title-area">
             <h1 class="img-title"><?= parse($post['title'], false, false, false); ?></h1>
             <div class="author">
-                <?php if ($post['author_id'] == 0) {
+                <?php if ($post['poster_id'] == 0) {
                     echo "";
                 } else { ?>
                     <a class="<?= $post['user_color_class'] ?>"
-                       href="user.php?u=<?= $post['author_id']; ?>"><?= $post['poster_name']; ?></a>
+                       href="user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
                     (<?= userScore($post['poster_id']); ?>)
                 <?php } ?>
                 <span class="date"><?= date("F d, Y", strtotime($post['date'])); ?></span>
@@ -252,7 +252,7 @@ if ($images[0]['is_youtube']) {
                 <div class="action-area">
                     <div class="author">
                         <a class="<?= $comment['user_color_class']; ?>"
-                           href="user.php?u=<?= $comment['poster_id']; ?>">
+                           href="user.php?u=<?= $comment['author_id']; ?>">
                             <?php if ($post['poster_id'] == $comment['author_id']) {
                                 ?> <i class="fa fa-camera"></i> <?php
                             }
