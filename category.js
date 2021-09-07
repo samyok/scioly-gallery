@@ -6,6 +6,7 @@
 $(document).ready(() => {
     let pageURL = "category.php";
     if (window.PAGE_USER_ID) pageURL = "user.php";
+    if (window.ALL_CATEGORIES) pageURL = "all.php";
     $('.gallery-category').show().masonry(masonry_opts)
     $(".hamburger").on("click", () => {
         $(".menu-reactive").toggleClass("menu-open")

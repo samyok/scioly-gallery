@@ -102,11 +102,12 @@ if ($edit_post) {
     <script src="https://bcdn.scioly.gallery/gallery/js/toastr.min.js"></script>
     <link href="https://bcdn.scioly.gallery/gallery/css/gallery.css?v=<?= time() ?>" rel="stylesheet">
     <script>
-        window.CATEGORY_ID = <?= $category_id; ?>;
         window.PICTURES = <?= json_encode($pics_array) ?>;
         window.EDIT_POST = <?= $edit_post ?>;
         window.COMBINING = <?= json_encode($combination) ?>;
         window.IS_ADMIN = <?= is_admin($user) ? 'true' : 'false' ?>;
+        window.ALL_CATEGORIES = true;
+        let resizeMasonry = () => {};
     </script>
 </head>
 <body>

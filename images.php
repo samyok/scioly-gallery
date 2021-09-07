@@ -60,6 +60,8 @@ if (defined('IS_GALLERY_USERPAGE') || $request->variable('u', 0)) {
 } else if (isset($category_id) || $request->variable('c', 0)) {
     $typeOfImagesRequest = 'category';
     $category_id = isset($category_id) ? $category_id : $request->variable('c', 0);
+} else {
+    $typeOfImagesRequest = 'all';
 }
 
 $sort = isset($sort) ? $sort : $request->variable('sort', '');
@@ -124,6 +126,8 @@ if ($typeOfImagesRequest == 'user') {
     $sqlTypeOfRequestString = "p.poster_id = $pageUserID";
 } else if ($typeOfImagesRequest == 'category') {
     $sqlTypeOfRequestString = "p.category = $category_id";
+} else {
+    $sqlTypeOfRequestString = "TRUE";
 }
 
 $sql = "(SELECT p.*,

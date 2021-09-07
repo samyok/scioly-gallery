@@ -235,7 +235,7 @@ $vote_classes = [
     <div class="comment-wrap">
         <div class="comment-add">
             <textarea id="comment-add-text" oninput="auto_grow(this)" placeholder="Add comment..."></textarea>
-            <button class="post-reply">Post Reply</button>
+            <button class="post-reply" style="margin: 10px 0;">Post Reply</button>
         </div>
         <?php
         $is_hidden_string = 'is_hidden is not true and';

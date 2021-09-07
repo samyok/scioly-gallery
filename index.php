@@ -76,6 +76,8 @@ $user->setup('');
                 ?>
                 <a class="img-tile tile-section-<?= $key ?>" href="category.php?c=<?= $row['category_id']; ?>">
 
+                    <div class="bk-img" style="#f4f4f4">
+                    </div>
                     <div class="bk-img"
                          style="filter: blur(5px);"
                          data-bkg-src="<?= $thumbnailImageURI; ?>">
