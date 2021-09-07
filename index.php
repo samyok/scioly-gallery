@@ -76,7 +76,7 @@ $user->setup('');
                 ?>
                 <a class="img-tile tile-section-<?= $key ?>" href="category.php?c=<?= $row['category_id']; ?>">
 
-                    <div class="bk-img">
+                    <div class="bk-img" style="background: black">
                     </div>
                     <div class="bk-img"
                          style="filter: blur(5px);"
