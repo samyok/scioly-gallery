@@ -62,7 +62,11 @@ $(document).ready(() => {
 
     $("#load_upload").change(async (event) => {
         event.target.setAttribute('disabled', true);
-        Swal.showLoading();
+        document.querySelector(".post-reply").setAttribute("disabled", true);
+        Swal.showLoading({
+            allowOutsideClick: false,
+            allowEscapeKey: false
+        });
         try {
             await readURL(event.target)
         } catch (e) {
@@ -77,6 +81,7 @@ $(document).ready(() => {
             Swal.hideLoading();
             $("#load_upload").val("")
             event.target.removeAttribute('disabled')
+            document.querySelector(".post-reply").removeAttribute("disabled");
         }
     });
 

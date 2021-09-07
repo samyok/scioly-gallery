@@ -85,6 +85,7 @@ $years = $db->sql_fetchrowset($result);
         }
     </style>
     <script>
+        if(!window.resizeMasonry) resizeMasonry = () => {};
         function nextImage(e) {
             // let unloadedYet = Array.from(document.querySelectorAll('[data-src]')).filter(img => img.src !== img.attributes['data-src']);
             // if(!unloadedYet.length) return console.log('done loading everything :)');

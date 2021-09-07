@@ -137,7 +137,7 @@ if ($edit_post) {
         </div>
         <label for="post-input">Description</label>
         <textarea id="post-input" oninput="auto_grow(this)" onclick="auto_grow(this)" class="borderless"
-                  placeholder="Post Description"><?= $post['description']; ?></textarea>
+                  placeholder="Post Description: Describe your post here!"><?= $post['description']; ?></textarea>
         <label for="category_list">Select Category</label><br>
         <select name="possible_categories" id="category_list">
             <?php
@@ -146,7 +146,6 @@ if ($edit_post) {
             $groups = $db->sql_fetchrowset($result);
             foreach ($groups as $group) {
                 ?>
-
                 <optgroup label="<?= $group['group_name']; ?>">
                     <?php
                     $sql = 'SELECT category_id, category_name FROM gallery_categories WHERE `group_id` = ' . $group['group_id'] . ' ORDER BY category_name';
@@ -182,6 +181,8 @@ if ($edit_post) {
         <?php } else { ?>
             <button class="post-reply">Post into <span class="category_name"><?= $category_name; ?></span></button>
         <?php } ?>
+        <br>
+        <p>BBCode is enabled! Use the 'caption' tag to add captions to your image. For example, [caption=3]This is a cool caption[/caption] would add a caption to the 3rd image in your post.</p>
     </div>
 </div>
 <div class="modals">
