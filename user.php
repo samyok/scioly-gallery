@@ -118,6 +118,9 @@ $pageUserScore = pageUserScore($pageUserID);
         <?php if ($avatar) { ?>
             <div style="margin-right: 15px;">
                 <?= $avatar ?>
+                <script>
+                    $(".avatar").attr("src", $(".avatar").attr("src").replace("..", "/forums"))
+                </script>
             </div>
         <?php } ?>
         <div style="display: flex; justify-content: center; flex-direction: column; align-items: center">
