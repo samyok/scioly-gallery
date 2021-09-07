@@ -112,7 +112,7 @@ if ($images[0]['is_youtube']) {
 <html>
 <head>
     <title><?= $post['title']; ?> - Science Olympiad Student Center - Gallery</title>
-    <?= headHTML($header_image_uri, "&quot;" . trim($post['title']) . "&quot; by " . trim($post['poster_name']), trim($post['description']), $post['category_name'] . " | Scioly.org Gallery | (" . sizeof($images) . ")", true) ?>
+    <?= headHTML($header_image_uri, "&quot;" . trim($post['title']) . "&quot; (" . sizeof($images) . ") by " . trim($post['poster_name']), trim($post['description']), $post['category_name'] . " - Scioly.org Gallery", true) ?>
     <link rel="stylesheet" href="css/libs/lightgallery.min.css">
     <link rel="stylesheet" href="css/libs/toastr.min.css">
     <script src="js/toastr.min.js"></script>

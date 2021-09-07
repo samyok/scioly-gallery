@@ -45,7 +45,7 @@ $pageUserScore = pageUserScore($pageUserID);
 <html lang="en">
 <head>
     <title><?=$pageUser['username']?> - Gallery - Scioly.org</title>
-    <?= headHTML("https://scioly.org/forums/download/file.php?avatar=".$pageUser['user_avatar'], $pageUser['username']." on Gallery", "See what posts " .$pageUser['username']." has made on the Gallery!", null, true) ?>
+    <?= headHTML("https://scioly.org/forums/download/file.php?avatar=".$pageUser['user_avatar'], $pageUser['username']." on Gallery", "See what posts " .$pageUser['username']." has made on the Gallery!", "Scioly.org Gallery", true) ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.11/lib/sortable.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
