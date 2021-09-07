@@ -104,12 +104,15 @@ $vote_classes = [
     ($vote['score'] == 1 ? 'fa-thumbs-up voted' : 'fa-thumbs-o-up') . ' fa upvote',
     ($vote['score'] == -1 ? 'fa-thumbs-down voted' : 'fa-thumbs-o-down') . ' fa downvote',
 ];
-
+$header_image_uri = $images[0]['image_uri'];
+if ($images[0]['is_youtube']) {
+    $header_image_uri = "https://img.youtube.com/vi/" . $images[0]['image_uri'] . "/hqdefault.jpg";
+}
 ?>
 <html>
 <head>
     <title><?= $post['title']; ?> - Science Olympiad Student Center - Gallery</title>
-    <?= headHTML('https://scioly-gallery.samyok.us/gallery/' . $images[0]['image_uri']) ?>
+    <?= headHTML($header_image_uri, "&quot;" . trim($post['title']) . "&quot; by " . trim($post['poster_name']), trim($post['description']), $post['category_name'] . " | Scioly.org Gallery | (" . sizeof($images) . ")", true) ?>
     <link rel="stylesheet" href="css/libs/lightgallery.min.css">
     <link rel="stylesheet" href="css/libs/toastr.min.css">
     <script src="js/toastr.min.js"></script>

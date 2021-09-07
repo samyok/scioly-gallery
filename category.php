@@ -46,7 +46,7 @@ $years = $db->sql_fetchrowset($result);
 ?>
 <html lang="en">
 <head>
-    <?= headHTML() ?>
+    <?= headHTML(null, $category_name, "Submissions on the Scioly.org Gallery do not necessarily follow current rules for the event. Always refer to the Rules Manual!") ?>
     <title><?= $category_name; ?> - Science Olympiad Student Center - Gallery</title>
     <link rel="stylesheet" href="https://bcdn.scioly.gallery/gallery/css/libs/toastr.min.css">
     <script src="https://bcdn.scioly.gallery/gallery/js/toastr.min.js"></script>
@@ -60,7 +60,7 @@ $years = $db->sql_fetchrowset($result);
         if (typeof resizeMasonry === "undefined") window.resizeMasonry = () => {
         }
     </script>
-    <link rel="stylesheet" href="css/gallery.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="css/gallery.css">
     <style>
         .lg-outer {
             width: 100%;
@@ -124,7 +124,7 @@ $years = $db->sql_fetchrowset($result);
                         href="https://scioly.org/wiki/index.php/<?= $category_name ?>" target="_blank"
                         style="color:black; font-size: .7em; margin-left: 10px;"><i class="fa fa-external-link"
                                                                                     aria-hidden="true"></i></a></h1>
-            <p style="margin: 0;">Past builds most likely do not conform to this year's rules. <br>There
+            <p style="margin: 0;">Submissions do not necessarily follow current rules for the event. Always refer to the <a href="https://www.soinc.org/rules-2022" target="_blank">Rules Manual</a>. <br>There
                 are <?= $num_pics ?> images in
                 this<?= $category['hidden'] ? ' <b>hidden</b> ' : ' ' ?>album, but we want more! Click <a
                         href="add.php?c=<?= $category_id; ?>">here</a> to contribute.</p>

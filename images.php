@@ -65,7 +65,7 @@ if (defined('IS_GALLERY_USERPAGE') || $request->variable('u', 0)) {
 }
 
 $sort = isset($sort) ? $sort : $request->variable('sort', '');
-$VALID_SORTS = ['new', 'views', 'score', 'comments', 'images', 'old', ''];
+$VALID_SORTS = ['new', 'views', 'score', 'comments', 'images', 'old', 'id', ''];
 if (!in_array($sort, $VALID_SORTS)) {
     echo 'done';
     exit();
@@ -110,6 +110,7 @@ $sort_dict = [
     'views' => 'ORDER BY post_id DESC',
     'comments' => 'ORDER BY num_replies DESC',
     'images' => 'ORDER BY num_images DESC',
+    'id' => 'ORDER BY post_id DESC',
     'old' => 'ORDER BY date ASC'
 ];
 

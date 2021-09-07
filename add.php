@@ -15,11 +15,15 @@ $user->session_begin();
 $auth->acl($user->data);
 $user->setup('');
 
+$category_id = intval($request->variable('c', 0));
 if ($user->data['user_id'] == ANONYMOUS) {
-    login_box('', $user->lang['LOGIN']);
+    if ($category_id > 0) {
+        login_box('/gallery/add.php?c=' . $category_id, $user->lang['LOGIN']);
+    } else {
+        login_box('/gallery/add.php', $user->lang['LOGIN']);
+    }
 }
 
-$category_id = intval($request->variable('c', 0));
 $edit_post = intval($request->variable('edit', 0));
 $combination = $request->variable('combine', "");
 
@@ -63,17 +67,16 @@ if ($edit_post) {
     }
 
     $combining_post_ids = explode(',', $combination);
-    if(sizeof($combining_post_ids) > 0 && is_admin($user)) {
+    if (sizeof($combining_post_ids) > 0 && is_admin($user)) {
         foreach ($combining_post_ids as $combining_post_id) {
-            if(strlen($combining_post_id) === 0) continue;
+            if (strlen($combining_post_id) === 0) continue;
             // get data, including images
             $sql = 'SELECT * FROM gallery_posts WHERE ' . $db->sql_build_array('SELECT', ['post_id' => $combining_post_id]);
 
             $rslt = $db->sql_query($sql);
             $combining_post_info = $db->sql_fetchrow($rslt);
-            $post['title'] .= " & ". $combining_post_info['title'];
-            $post['description'] .= "\n\n&\n\n". $combining_post_info['description'];
-
+            $post['title'] .= " & " . $combining_post_info['title'];
+            $post['description'] .= "\n\n&\n\n" . $combining_post_info['description'];
 
 
             $sql = "SELECT * FROM gallery_images WHERE belongs_to_post = $combining_post_id $showHidden ORDER BY image_index, image_id";
@@ -100,15 +103,22 @@ if ($edit_post) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css"/>
     <link rel="stylesheet" href="https://bcdn.scioly.gallery/gallery/css/libs/toastr.min.css">
     <script src="https://bcdn.scioly.gallery/gallery/js/toastr.min.js"></script>
-    <link href="https://bcdn.scioly.gallery/gallery/css/gallery.css?v=<?= time() ?>" rel="stylesheet">
+    <link href="/gallery/css/gallery.css" rel="stylesheet">
     <script>
         window.PICTURES = <?= json_encode($pics_array) ?>;
         window.EDIT_POST = <?= $edit_post ?>;
         window.COMBINING = <?= json_encode($combination) ?>;
+        window.CATEGORY_ID = <?= $category_id ? $category_id : '0'?>;
         window.IS_ADMIN = <?= is_admin($user) ? 'true' : 'false' ?>;
         window.ALL_CATEGORIES = true;
-        let resizeMasonry = () => {};
+        let resizeMasonry = () => {
+        };
     </script>
+    <style>
+        textarea {
+            font-size: 14px;
+        }
+    </style>
 </head>
 <body>
 <?= navigationHTML($user) ?>
@@ -138,6 +148,15 @@ if ($edit_post) {
         <label for="post-input">Description</label>
         <textarea id="post-input" oninput="auto_grow(this)" onclick="auto_grow(this)" class="borderless"
                   placeholder="Post Description: Describe your post here!"><?= $post['description']; ?></textarea>
+
+        <br>
+        <br>
+        <p style="font-size: 13px; margin: 0; padding: 0;">BBCode is enabled! Use the 'caption' tag to add captions to
+            your image. For example, <span
+                    style="font-family: monospace">[caption=3]This is a cool caption[/caption]</span> would add a
+            caption to the 3rd image in your post.</p>
+        <br>
+
         <label for="category_list">Select Category</label><br>
         <select name="possible_categories" id="category_list">
             <?php
@@ -148,7 +167,7 @@ if ($edit_post) {
                 ?>
                 <optgroup label="<?= $group['group_name']; ?>">
                     <?php
-                    $sql = 'SELECT category_id, category_name FROM gallery_categories WHERE `group_id` = ' . $group['group_id'] . ' ORDER BY category_name';
+                    $sql = 'SELECT category_id, category_name FROM gallery_categories WHERE hidden <> 1 AND `group_id` = ' . $group['group_id'] . ' ORDER BY category_name';
                     $result = $db->sql_query($sql);
                     $rows = $db->sql_fetchrowset($result);
                     foreach ($rows as $row) {
@@ -181,8 +200,25 @@ if ($edit_post) {
         <?php } else { ?>
             <button class="post-reply">Post into <span class="category_name"><?= $category_name; ?></span></button>
         <?php } ?>
+        <br><br>
+        <p style="font-size: 13px; margin: 0; padding: 0;">Please note that all contributions to the Scioly.org Gallery
+            are considered to be released under the Creative Commons Attribution (see <a
+                    href="https://scioly.org/wiki/index.php/Scioly.org:Copyrights">here</a> for details).</p>
+        <p style="font-size: 13px; margin: 0; padding: 0;">If you do not want your pictures to be viewed and
+            redistributed at will, then do not submit it here.</p>
+        <p style="font-size: 13px; margin: 0; padding: 0;">By submitting content to the Gallery, you are acknowledging
+            that:</p>
+        <ul style="font-size: 13px; margin: 0;">
+            <li style="font-size: 13px; margin: 0; padding: 0;">All pictures and/or videos were taken by yourself,</li>
+            <li style="font-size: 13px; margin: 0; padding: 0;">All persons featured granted permission for publication,
+                and
+            </li>
+            <li style="font-size: 13px; margin: 0; padding: 0;">All builds/devices were photographed/recorded with the
+                permission of the owner.
+            </li>
+        </ul>
+        <p style="font-size: 13px; padding: 0; font-weight: bold">Do not submit copyrighted work without permission!</p>
         <br>
-        <p>BBCode is enabled! Use the 'caption' tag to add captions to your image. For example, [caption=3]This is a cool caption[/caption] would add a caption to the 3rd image in your post.</p>
     </div>
 </div>
 <div class="modals">
@@ -201,8 +237,8 @@ if ($edit_post) {
 <?= footerHTML() ?>
 <script src="https://bcdn.scioly.gallery/gallery/js/sweetalert2.all.min.js"></script>
 
-<script src="add.js?v=<?= time() ?>"></script>
-<script src="https://dev.scioly.gallery/lib.js?v=<?= time() ?>"></script>
+<script src="add.js"></script>
+<script src="https://files.scioly.org/lib.js"></script>
 </body>
 
 </html>

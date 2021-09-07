@@ -1,8 +1,10 @@
 <?php
 if (!defined('IN_PHPBB')) include "../lost.php";
 
-function headHTML($image='https://scioly.org/src/img/logo/logo_square.png')
+function headHTML($image = 'https://scioly.org/src/img/logo/logo_square.png', $title = "Science Olympiad Student Center", $desc = "A resource by and for Science Olympiad students, coaches, and alumni nationwide.", $site_name = "Scioly.org Gallery", $large_image = false)
 {
+    $summary_large_image_html = '<meta name="twitter:card" content="summary_large_image">';
+    if (!$large_image) $summary_large_image_html = '';
     return '
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script type="text/javascript" src="https://scioly.org/src/js/jquery.min.js"></script>
@@ -15,12 +17,15 @@ function headHTML($image='https://scioly.org/src/img/logo/logo_square.png')
 
     <link rel="shortcut icon" href="https://scioly.org/favicon.ico" type="image/x-icon">
     <link rel="icon" href="https://scioly.org/favicon.ico" type="image/x-icon">
-    <meta property="og:title" content="Science Olympiad Student Center"/>
-    <meta property="og:type" content="website"/>
+    <meta property="og:title" content="' . $title . '"/>
+    <meta property="og:site_name" content="' . $site_name . '">
+    <meta property="og:type" content="article"/>
     <meta property="og:url" content="https://scioly.org"/>
-    <meta property="og:image" content="'.$image. '"/>
+    <meta property="og:image" content="' . $image . '"/>
+    ' . $summary_large_image_html . '
+    <meta name="theme-color" content="#2E66B6">
     <meta property="og:description"
-          content="A resource by and for Science Olympiad students, coaches, and alumni nationwide."/>
+          content="' . $desc . '"/>
     <!-- google analytics -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-340310-3"></script>
@@ -67,7 +72,7 @@ function navigationHTML($user)
             <!-- <li><a href="https://scioly.org/invitational">Invites</a></li> -->
             <li><a href="https://scioly.org/chat">Chat</a></li>
     
-            <li><a href="https://scioly.org/forums/memberlist.php?mode=viewprofile&u=' .$user->data['user_id'] . '"
+            <li><a href="https://scioly.org/forums/memberlist.php?mode=viewprofile&u=' . $user->data['user_id'] . '"
                    class="button">' . $user->data['username'] . '</a>
             </li>
         </ul>
@@ -76,14 +81,10 @@ function navigationHTML($user)
     ';
 }
 
-function footerHTML() {
+function footerHTML()
+{
     return '
     <div class="site-footer">
-    <h1><a style="    font-size: 20px;
-    font-weight: 900;
-    background: yellow;
-    padding: 20px;" target="_blank" href="https://docs.google.com/spreadsheets/d/160KQ6fNz0sCdYnsabTMkp9FqTcUm08s_8hD2RNKVvn8/edit?usp=sharing">REPORT BUG</a>
-</h1>
         <div class="tiles">
             <div>
                 <h4>Connect</h4>

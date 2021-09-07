@@ -16,7 +16,7 @@ header('Content-Type: application/json');
 
 // @TODO move these values to a sekret file?
 $algo = "sha512";
-$secret = "insert secret here";
+$secret = "5b31db76-82b1-40c6-96d6-ce4ed9035412";
 $time = microtime(true) * 1000 >> 0;
 $username = $user->data['username'];
 $text = $username . ':' . $time;

@@ -94,7 +94,7 @@ $pageUserScore = pageUserScore($pageUserID);
             margin: 0
         }
     </style>
-    <script src="category.js?v=<?= time() ?>"></script>
+    <script src="category.js"></script>
     <script>
         function nextImage(e) {
             // let unloadedYet = Array.from(document.querySelectorAll('[data-src]')).filter(img => img.src !== img.attributes['data-src']);

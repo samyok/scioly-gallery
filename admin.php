@@ -21,7 +21,7 @@ if (!is_admin($user)) include './lost.php';
 <html lang="en">
 <head>
     <?= headHTML(); ?>
-    <link rel="stylesheet" href="css/gallery.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="css/gallery.css">
     <title>Science Olympiad Student Center - Gallery</title>
     <style>
         .hidden {
@@ -94,6 +94,6 @@ if (!is_admin($user)) include './lost.php';
 
 <?= footerHTML() ?>
 
-<script src="./moderation.js?v=<?= time() ?>"></script>
+<script src="./moderation.js"></script>
 </body>
 </html>

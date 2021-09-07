@@ -51,7 +51,7 @@ foreach ($logs as $log) {
     <script src="js/toastr.min.js"></script>
     <link rel="stylesheet" href="css/libs/lightgallery.min.css">
 
-    <link rel="stylesheet" href="css/gallery.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="css/gallery.css">
     <script src="js/masonry.pkgd.min.js"></script>
     <script src="js/bodyScrollLock.js?a"></script>
     <script>
@@ -156,7 +156,7 @@ foreach ($logs as $log) {
 </div>
 <?= footerHTML() ?>
 <script src="js/lightgallery-all.min.js"></script>
-<script src="category.js?v=<?= time() ?>"></script>
+<script src="category.js"></script>
 </body>
 
 </html>

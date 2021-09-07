@@ -14,8 +14,8 @@ $user->setup('');
 ?>
 <html lang="en">
 <head>
-    <?= headHTML(); ?>
-    <link rel="stylesheet" href="css/gallery.css?v=<?= time() ?>">
+    <?= headHTML(null, "Welcome to the Scioly.org Gallery!", "Here, you can find thousands of pictures and videos for all your events."); ?>
+    <link rel="stylesheet" href="css/gallery.css">
     <title>Science Olympiad Student Center - Gallery</title>
 </head>
 <body>
@@ -26,13 +26,13 @@ $user->setup('');
     <div class="gallery-control" style="padding: 10px 5px">
         <div class="gal-nav">
             <h1>Gallery</h1>
-            <p style="margin: 0">Welcome to the Scioly.org gallery! Before you post, please read the information <a
+            <p style="margin: 0">Welcome to the Scioly.org Gallery! Before you post, please read the information <a
                         href="here">here</a>.</p>
             <p style="margin: 0">There are <?php
                 $sql = 'SELECT count(image_id) as count FROM gallery_images WHERE is_hidden is not true';
                 $result = $db->sql_query($sql);
                 echo $db->sql_fetchrow($result)['count'];
-                ?> pictures and videos.</p>
+                ?> pictures and videos. If you see an old image that could use a better title, report it so we can fix the post!</p>
         </div>
         <div class="controls">
             <a href="add.php" class="thinbtn" title="Add a new post">
@@ -76,7 +76,7 @@ $user->setup('');
                 ?>
                 <a class="img-tile tile-section-<?= $key ?>" href="category.php?c=<?= $row['category_id']; ?>">
 
-                    <div class="bk-img" style="#f4f4f4">
+                    <div class="bk-img">
                     </div>
                     <div class="bk-img"
                          style="filter: blur(5px);"
@@ -94,6 +94,7 @@ $user->setup('');
         }
         ?>
     </div>
+    <p style="margin: 30px 4px 20px">Think there should be a category for an event that isn't listed? <a href="https://scioly.org/forums/ucp.php?i=pm&mode=compose&g=52">Message us</a> and we'll add it!</p>
 </div>
 
 <?= footerHTML() ?>

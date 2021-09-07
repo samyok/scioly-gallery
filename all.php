@@ -44,7 +44,7 @@ $years = $db->sql_fetchrowset($result);
         if (typeof resizeMasonry === "undefined") window.resizeMasonry = () => {
         }
     </script>
-    <link rel="stylesheet" href="css/gallery.css?v=<?= time() ?>">
+    <link rel="stylesheet" href="css/gallery.css">
     <style>
         .lg-outer {
             width: 100%;
