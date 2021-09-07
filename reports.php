@@ -83,14 +83,14 @@ function userScore($user_id)
                     <h2><?= $post['title']; ?></h2>
                     <p><?= replaceNewLines($post['description']); ?></p>
                     <p><b>Number of images:</b> <?= sizeof($images) ?> in post - <?= $num_hidden_images ?> deleted.</p>
-                    <p><b>User:</b> <a href="/user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
+                    <p><b>User:</b> <a href="/forums/user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
                         (<?= userScore($post['poster_id']) ?>)</p>
                     <p><b>Category:</b> <?= $post['category_name']; ?>
                         (<?= $post['category']; ?>-<?= $post['post_id']; ?>)</p>
                 </div>
                 <div class="report-info">
                     <p><b>Reported by:</b> <a
-                                href="/user.php?u=<?= $row['reporter_id'] ?>"><?= $row['reporter_name']; ?></a>
+                                href="/forums/user.php?u=<?= $row['reporter_id'] ?>"><?= $row['reporter_name']; ?></a>
                         (<?= userScore($post['poster_id']) ?>)</p>
                     <p><b>Report reason:</b> <?= $row['reason_for_report']; ?></p>
                     <p><b>Report ID:</b> <?= $row['report_id']; ?></p>
@@ -134,16 +134,16 @@ function userScore($user_id)
                     <p><b>Parent Post:</b> <a
                                 href="picture.php?p=<?= $post['post_id']; ?>#c<?= $comment['reply_id']; ?>"
                                 target="_blank"><?= $post['title']; ?></a> by <a
-                                href="/user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
+                                href="/forums/user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
                         (<?= userScore($post['poster_id']) ?>)</p>
                     <p><b>Comment:</b> <?= replaceNewLines($comment['text']); ?></p>
                     <p><b>User:</b> <a
-                                href="/user.php?u=<?= $comment['author_id']; ?>"><?= $comment['author_name']; ?></a>
+                                href="/forums/user.php?u=<?= $comment['author_id']; ?>"><?= $comment['author_name']; ?></a>
                         (<?= userScore($comment['author_id']) ?>)</p>
                 </div>
                 <div class="report-info">
                     <p><b>Reported by:</b> <a
-                                href="/user.php?u=<?= $row['reporter_id'] ?>"><?= $row['reporter_name']; ?></a>
+                                href="/forums/user.php?u=<?= $row['reporter_id'] ?>"><?= $row['reporter_name']; ?></a>
                         (<?= userScore($post['poster_id']) ?>)</p>
                     <p><b>Report reason:</b> <?= replaceNewLines($row['reason_for_report']); ?></p>
                     <p><b>Report ID:</b> <?= $row['report_id']; ?></p>
