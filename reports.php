@@ -108,7 +108,7 @@ function userScore($user_id)
                                href="picture.php?p=<?= $post['post_id']; ?>#lg=1&slide=<?= $key; ?>">
                                 <img style="margin: 10px; height: 150px;" src="<?= $image_url ?>" alt="">
                             </a>
-                            <?
+                            <?php
                         }
                         ?>
                     </div>
@@ -119,6 +119,44 @@ function userScore($user_id)
                     <button onclick="clear_report(<?= $row['report_id'] ?>)">Clear Report</button>
                 </div>
             </div>
+            <?php
+        } else if ($row['target_type'] == 'comment') {
+            $sql = 'SELECT * FROM gallery_replies WHERE reply_id = ' . $row['target_id'];
+            $result = $db->sql_query($sql);
+            $comment = $db->sql_fetchrow($result);
+
+            $sql = 'SELECT * FROM gallery_posts WHERE post_id = ' . $comment['post_id'];
+            $result = $db->sql_query($sql);
+            $post = $db->sql_fetchrow($result);
+            ?>
+            <div class="report-card" id="report-<?= $row['report_id']; ?>">
+                <div class="post-info">
+                    <p><b>Parent Post:</b> <a
+                                href="picture.php?p=<?= $post['post_id']; ?>#c<?= $comment['reply_id']; ?>"
+                                target="_blank"><?= $post['title']; ?></a> by <a
+                                href="/user.php?u=<?= $post['poster_id']; ?>"><?= $post['poster_name']; ?></a>
+                        (<?= userScore($post['poster_id']) ?>)</p>
+                    <p><b>Comment:</b> <?= replaceNewLines($comment['text']); ?></p>
+                    <p><b>User:</b> <a
+                                href="/user.php?u=<?= $comment['author_id']; ?>"><?= $comment['author_name']; ?></a>
+                        (<?= userScore($comment['author_id']) ?>)</p>
+                </div>
+                <div class="report-info">
+                    <p><b>Reported by:</b> <a
+                                href="/user.php?u=<?= $row['reporter_id'] ?>"><?= $row['reporter_name']; ?></a>
+                        (<?= userScore($post['poster_id']) ?>)</p>
+                    <p><b>Report reason:</b> <?= replaceNewLines($row['reason_for_report']); ?></p>
+                    <p><b>Report ID:</b> <?= $row['report_id']; ?></p>
+                    <p><b>Reported Time:</b> <?= $row['timestamp']; ?></p>
+                </div>
+                <div class="controls">
+                    <a class="gray-button" href="picture.php?p=<?= $post['post_id']; ?>#c<?= $comment['reply_id']; ?>"
+                       target="_blank">View Context</a>
+                    <button onclick="delete_comment(<?= $comment['reply_id'] ?>)">Delete Comment</button>
+                    <button onclick="clear_report(<?= $row['report_id'] ?>)">Clear Report</button>
+                </div>
+            </div>
+
             <?php
         }
     }
