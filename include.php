@@ -17,7 +17,7 @@ function is_admin($user)
     // 5 = admins, 4 = global mods
     // 52 = gallery mods
     // 145 = mods
-    return $group_id == 5 || $group_id == 145 || $group_id == 4 || $group_id == 52 || $user_id = 2 || $user_id == 46711; // samy;
+    return $group_id == 5 || $group_id == 145 || $group_id == 4 || $group_id == 52 || $user_id == 2 || $user_id == 46711; // samy;
 }
 
 function needs_auth()
