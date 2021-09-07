@@ -16,7 +16,7 @@ $user->setup('');
 <head>
     <?= headHTML(null, "Welcome to the Scioly.org Gallery!", "Here, you can find thousands of pictures and videos for all your events."); ?>
     <link rel="stylesheet" href="css/gallery.css">
-    <title>Science Olympiad Student Center - Gallery</title>
+    <title>Gallery - Scioly.org</title>
 </head>
 <body>
 

@@ -268,6 +268,16 @@ function submit_post() {
     on_sort_finish();
 
     // make the first image a non-deleted one:
+    if(PICTURES.filter(img => !+img.is_hidden).length === 0) {
+        Swal.hideLoading();
+        Swal.fire({
+            type: "error",
+            title: "Oh no!",
+            text: "You need to attach at least one picture or video!",
+            showConfirmButton: true
+        })
+        return;
+    }
     let firstImageId = PICTURES.filter(img => !+img.is_hidden)[0].image_id;
     let indexOfFirstImage = PICTURES.map(img => img.image_id).indexOf(firstImageId);
     let firstImage = PICTURES.splice(indexOfFirstImage, 1);
