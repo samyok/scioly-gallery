@@ -13,7 +13,11 @@ function is_admin($user)
     // TODO return a number value depending on their group (i.e. how much power should they have?)
     $group_id = $user->data['group_id'];
     $user_id = $user->data['user_id'];
-    return $group_id == 5 || $user_id == 2 || $user_id == 48 || $user_id == 46711;
+    // GROUPS
+    // 5 = admins, 4 = global mods
+    // 52 = gallery mods
+    // 145 = mods
+    return $group_id == 5 || $group_id == 145 || $group_id == 4 || $group_id == 52 || $user_id = 2 || $user_id == 46711; // samy;
 }
 
 function needs_auth()
@@ -51,7 +55,7 @@ function getNumReports()
 function reportBox()
 {
     global $user;
-    if(!is_admin($user)) return '';
+    if (!is_admin($user)) return '';
     $num_reports = getNumReports();
     $is_or_are = $num_reports === 1 ? 'is' : 'are';
     $plural = $num_reports === 1 ? '' : 's';
@@ -61,11 +65,12 @@ function reportBox()
         return '<div class="report-box"><a href="reports.php">There ' . $is_or_are . ' <b>' . $num_reports . ' active report' . $plural . '. </b>Click here to address ' . $them_or_it . '.</a></div>';
 }
 
-function adminButtons(){
+function adminButtons()
+{
     global $user;
-    if(!is_admin($user)) return '';
+    if (!is_admin($user)) return '';
     $num_reports = getNumReports();
-    if($num_reports === 0) {
+    if ($num_reports === 0) {
         return '
             <a href="reports.php" class="thinbtn" title="Add a new post">
                 Reports
@@ -91,19 +96,22 @@ function gallery_log($target_type, $target_id, $action, $reason)
             'target_id' => $target_id,
             'mod_user' => $user->data['user_id'],
             'mod_username' => $user->data['username'],
-            'target_type' =>$target_type,
+            'target_type' => $target_type,
             'reason' => $reason ? $reason : '',
             'action' => $action
         ]);
     return $db->sql_query($sql);
 }
-function user_color_class($user){
+
+function user_color_class($user)
+{
     return '';
     // bernard said no to different colors but in case you ever want to enable it:
     // return is_admin($user) ? "admin" : "";
 }
 
-function parse($text, $allow_bbcode, $allow_magic_url, $allow_smilies){
+function parse($text, $allow_bbcode, $allow_magic_url, $allow_smilies)
+{
     $p = new parse_message($text);
     return $p->format_display($allow_bbcode, $allow_magic_url, $allow_smilies, false);
 }

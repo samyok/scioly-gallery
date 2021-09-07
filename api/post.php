@@ -58,7 +58,7 @@ if ($action == "POST") { // add/edit post
 
     $category_id = intval($request->variable('category', 0));
     global $db;
-    if ($category_id != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
+//    if ($category_id != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
 
     $categories = getSQLRows("SELECT `category_id`, `category_name` FROM `gallery_categories` WHERE `category_id`=" . $db->sql_escape($category_id));
     if (count($categories) !== 1) throw new Exception("Invalid category.");

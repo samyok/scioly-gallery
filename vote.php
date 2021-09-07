@@ -66,7 +66,7 @@ if (
     $result = $db->sql_query($sql);
     $row = $db->sql_fetchrow($result);
 
-    if($row['category'] != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
+//    if($row['category'] != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
 
     $target_user_id = $row['user_id'];
 

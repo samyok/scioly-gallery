@@ -35,7 +35,7 @@ if ($action == 'create') {
     $row = $db->sql_fetchrow($result);
     $count = $row['count'];
     if ($count < 1) throw new Exception('Post not found.');
-    if($row['category'] != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
+//    if($row['category'] != 42) throw new Exception("Hey! Don't do things in categories other than Memez!! 👿");
     // create the comment
     $sql = 'INSERT INTO gallery_replies ' . $db->sql_build_array('INSERT', [
             'text' => $content,
